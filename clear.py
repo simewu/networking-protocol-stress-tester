@@ -68,7 +68,7 @@ def get_interfaces():
 # Ask the user a yes/no question, returns True or False
 def confirm(msg):
 	response = ''
-	while response not in ['y', 'n', 'yes', 'no']:
+	while response not in ['y', 'n', 'yes', 'no', '\n']:
 		response = input(f'{msg} (y/n): ').strip().lower()
 	if response in ['y', 'yes']: return True
 	else: return False
@@ -103,7 +103,9 @@ if __name__ == '__main__':
 	print()
 	print()
 	print(f'Using interface "{interface}"')
-	terminal(f'sudo sudo tc qdisc del dev {interface} root netem')
+	cmd = f'sudo sudo tc qdisc del dev {interface} root netem'
+	print(cmd)
+	terminal(cmd)
 
 	header('All filters have been cleared.', width)
 	
