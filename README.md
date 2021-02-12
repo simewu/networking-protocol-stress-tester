@@ -1,6 +1,6 @@
 # Networking Stress Tester
 
-This application allows Linux users to test the resilience of networking protocols in order to ensure reliability when real-world networking errors occur. By using the `tc` command's `netem` functionality, rules can be applied to a networking interface. The scripts provided in this repository make it more user-friendly to use.
+This application allows Linux users to test the resilience of networking protocols to ensure reliability when real-world networking errors occur. By using the `tc` command's `netem` functionality, rules can be applied to a networking interface. The scripts provided in this repository make it more user-friendly to use.
 
 The following functionalities are supported:
 * Packet delaying
