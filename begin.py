@@ -2,8 +2,6 @@ import os
 import re
 import sys
 
-# https://www.badunetworks.com/traffic-shaping-with-tc/
-
 # Send a command to the linux terminal
 def terminal(cmd):
 	return os.popen(cmd).read()
@@ -58,11 +56,11 @@ def subheader(message, width):
 	print(color('cyan', 'blue', ' ' * width))
 	print()
 
-# Return an array of networking interfaces (minus localhost)
+# Return an array of networking interfaces
 def get_interfaces():
 	raw = terminal('ip link show')
 	interfaces = re.findall(r'[0-9]+: ([^:]+): ', raw)
-	interfaces.remove('lo')
+	#interfaces.remove('lo')
 	return interfaces
 
 # Ask the user a yes/no question, returns True or False
@@ -154,7 +152,7 @@ if __name__ == '__main__':
 			try:
 				percent = float(input('What percentage of packets would you like to drop? (0 to 100): '))
 			except: pass
-		cmd = f'sudo tc qdisc change dev {interface} root netem loss {percent}%'
+		cmd = f'sudo tc qdisc add dev {interface} root netem loss {percent}%'
 		print(cmd)
 		terminal(cmd)
 		print()
@@ -167,7 +165,7 @@ if __name__ == '__main__':
 			try:
 				percent = float(input('What percentage of packets would you like to duplicate? (0 to 100): '))
 			except: pass
-		cmd = f'sudo tc qdisc change dev {interface} root netem duplicate {percent}%'
+		cmd = f'sudo tc qdisc add dev {interface} root netem duplicate {percent}%'
 		print(cmd)
 		terminal(cmd)
 		print()
@@ -180,7 +178,7 @@ if __name__ == '__main__':
 			try:
 				percent = float(input('What percentage of packets would you like to corrupt? (0 to 100): '))
 			except: pass
-		cmd = f'sudo tc qdisc change dev {interface} root netem corrupt {percent}%'
+		cmd = f'sudo tc qdisc add dev {interface} root netem corrupt {percent}%'
 		print(cmd)
 		terminal(cmd)
 		print()
@@ -203,7 +201,11 @@ if __name__ == '__main__':
 	# 			milliseconds = float(input('A delay is required. How many milliseconds? '))
 	# 		except: pass
 
-	# 	cmd = f'sudo tc qdisc change dev {interface} root netem delay {milliseconds} reorder {percent}%'
+	# 	cmd = f'sudo tc qdisc add dev {interface} root netem delay {milliseconds} reorder {percent}%'
 	# 	print(cmd)
 	# 	terminal(cmd)
 	# 	print()
+
+
+
+# https://www.badunetworks.com/traffic-shaping-with-tc/
